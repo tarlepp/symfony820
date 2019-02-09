@@ -10,6 +10,12 @@ $template = <<<TEMPLATE
     <p>
        {{ widget[0].name }}
     </p>
+    
+    <ul>
+    {% for w in widget %}
+        <li>{{ w.name|e }}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>
 TEMPLATE;
@@ -22,10 +28,7 @@ $twig = new Twig_Environment($loader);
 
 $db = new Nette\Database\Connection('sqlite:db_vote.db');
 $db->query('CREATE TABLE IF NOT EXISTS widget (id int, name varchar)');
-
-if ((int)$db->fetchField('SELECT COUNT(*) AS count FROM widget') === 0) {
-    $db->query('INSERT INTO widget (id, name) VALUES (1, \'some name\')');
-}
+$db->query('INSERT INTO widget (id, name) VALUES (1, \'some name - ' . time() . '\')');
 
 $res = $db->fetchAll('SELECT * FROM widget');
 
