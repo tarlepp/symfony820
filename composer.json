@@ -1,6 +1,7 @@
 {
     "name": "wunder/symfony820",
     "require": {
-        "twig/twig": "^2.6"
+        "twig/twig": "^2.6",
+        "nette/database": "^2.4"
     }
 }

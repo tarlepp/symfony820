@@ -15,4 +15,10 @@ $widgets = [
     new stdClass(),
 ];
 
-echo $twig->render('index', ['widgets' => $widgets]);
+$db = new Nette\Database\Connection('sqlite:db_vote.db');
+
+$db->query('CREATE TABLE IF NOT EXISTS widget (id int, name varchar)');
+
+$res = $db->fetchAll('SELECT * FROM widget');
+
+echo $twig->render('index', ['widgets' => $res]);
